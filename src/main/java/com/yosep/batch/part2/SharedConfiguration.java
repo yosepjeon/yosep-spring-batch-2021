@@ -27,7 +27,6 @@ public class SharedConfiguration {
     * JobExecutionContext는 Job이 관리하는 Step내에서 어디서든 데이터 공유 가능
     * StepExecutionContext는 해당 Step 내에서만 공유 가능하다. Step끼리 공유 불가능.
      */
-
     @Bean
     public Job shareJob() {
         return jobBuilderFactory.get("shareJob")
