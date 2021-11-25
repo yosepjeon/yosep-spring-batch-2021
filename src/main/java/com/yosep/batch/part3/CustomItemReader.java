@@ -19,6 +19,7 @@ public class CustomItemReader<T> implements ItemReader<T> {
     @Override
     public T read() throws Exception, UnexpectedInputException, ParseException, NonTransientResourceException {
         if (!items.isEmpty()) {
+            // Collection 지식: 0번째 인덱스의 아이템을 반환함과 동시에 제거
             return items.remove(0);
         }
 
