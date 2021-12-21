@@ -83,7 +83,6 @@ public class SavePersonConfiguration {
     }
 
     private ItemWriter<? super Person> itemWriter() throws Exception {
-//        return items -> items.forEach(x -> log.info("저는 {} 입니다.", x.getName()));
         JpaItemWriter<Person> jpaItemWriter = new JpaItemWriterBuilder<Person>()
                 .entityManagerFactory(entityManagerFactory)
                 .build();
