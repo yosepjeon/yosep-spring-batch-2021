@@ -1,5 +1,6 @@
 package com.yosep.batch.project1;
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.util.ObjectUtils;
@@ -17,7 +18,15 @@ public class User extends AuditingEntity{
     private String userName;
 
     @Enumerated(EnumType.STRING)
-    private Level level;
+    private Level level = Level.NORMAL;
+
+    private int totalAmount;
+
+    @Builder
+    private User(String userName, int totalAmount) {
+        this.userName = userName;
+        this.totalAmount = totalAmount;
+    }
 
     public enum Level {
         VIP(500_000, null),

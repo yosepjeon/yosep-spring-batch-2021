@@ -1,4 +1,4 @@
-package com.yosep.batch.part3;
+package com.yosep.batch.project1;
 
 
 public interface UserQueryDslRepository {

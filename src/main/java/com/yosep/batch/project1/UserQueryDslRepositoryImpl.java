@@ -1,7 +1,6 @@
-package com.yosep.batch.part3;
+package com.yosep.batch.project1;
 
 import com.querydsl.jpa.impl.JPAQueryFactory;
-import com.yosep.batch.project1.QUser;
 import org.springframework.stereotype.Repository;
 
 @Repository
