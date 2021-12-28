@@ -41,14 +41,14 @@ public class ItemWriterConfiguration {
         this.entityManagerFactory = entityManagerFactory;
     }
 
-    @Bean
-    public Job itemWriterJob() throws Exception {
-        return this.jobBuilderFactory.get("itemWriterJob")
-                .incrementer(new RunIdIncrementer())
-                .start(this.csvItemWriterStep())
-                .next(jpaItemWriterStep())
-                .build();
-    }
+//    @Bean
+//    public Job itemWriterJob() throws Exception {
+//        return this.jobBuilderFactory.get("itemWriterJob")
+//                .incrementer(new RunIdIncrementer())
+//                .start(this.csvItemWriterStep())
+//                .next(jpaItemWriterStep())
+//                .build();
+//    }
 
     @Bean
     public Step csvItemWriterStep () throws Exception{
