@@ -17,5 +17,5 @@ public abstract class AuditingEntity {
     private LocalDateTime createdDate;
 
     @LastModifiedDate
-    private LocalDateTime modifiedDate;
+    private LocalDateTime updatedDate;
 }

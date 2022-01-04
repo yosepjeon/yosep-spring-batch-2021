@@ -6,6 +6,8 @@ import lombok.NoArgsConstructor;
 import org.springframework.util.ObjectUtils;
 
 import javax.persistence.*;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Getter
 @Entity
@@ -27,6 +29,23 @@ public class User extends AuditingEntity{
         this.userName = userName;
         this.totalAmount = totalAmount;
     }
+
+    public boolean availableLeveUp() {
+        return Level.availableLevelUp(this.getLevel(), this.getTotalAmount());
+    }
+
+    private int getTotalAmount() {
+        return this.totalAmount;
+    }
+
+    public Level levelUp() {
+        Level nextLevel = Level.getNextLevel(this.getTotalAmount());
+
+        this.level = nextLevel;
+
+        return nextLevel;
+    }
+
 
     public enum Level {
         VIP(500_000, null),
@@ -60,11 +79,15 @@ public class User extends AuditingEntity{
             }
 
             if(totalAmount >= Level.GOLD.nextAmount) {
-                return GOLD;
+                return GOLD.nextLevel;
             }
 
             if(totalAmount >= Level.SILVER.nextAmount) {
-                return SILVER;
+                return SILVER.nextLevel;
+            }
+
+            if (totalAmount >= Level.NORMAL.nextAmount) {
+                return NORMAL.nextLevel;
             }
 
             return NORMAL;

@@ -6,6 +6,7 @@ import org.springframework.batch.core.step.tasklet.Tasklet;
 import org.springframework.batch.repeat.RepeatStatus;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class SaveUserTasklet implements Tasklet {
@@ -18,13 +19,19 @@ public class SaveUserTasklet implements Tasklet {
 
     @Override
     public RepeatStatus execute(StepContribution contribution, ChunkContext chunkContext) throws Exception {
-        return null;
+        List<User> users = createUsers();
+
+        Collections.shuffle(users);
+
+        userRepository.saveAll(users);
+
+        return RepeatStatus.FINISHED;
     }
 
     private List<User> createUsers() {
         List<User> users = new ArrayList<>();
 
-        for (int i = 0; i < SIZE; i++) {
+        for (int i = 0; i < 100; i++) {
             users.add(User.builder()
                     .totalAmount(1_000)
                     .userName("test username" + i)
