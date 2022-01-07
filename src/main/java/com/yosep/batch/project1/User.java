@@ -6,8 +6,7 @@ import lombok.NoArgsConstructor;
 import org.springframework.util.ObjectUtils;
 
 import javax.persistence.*;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
+import java.util.List;
 
 @Getter
 @Entity
@@ -22,12 +21,14 @@ public class User extends AuditingEntity{
     @Enumerated(EnumType.STRING)
     private Level level = Level.NORMAL;
 
-    private int totalAmount;
+    @OneToMany(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+    @JoinColumn(name = "user_id")
+    private List<Orders> orders;
 
     @Builder
-    private User(String userName, int totalAmount) {
+    private User(String userName, List<Orders> orders) {
         this.userName = userName;
-        this.totalAmount = totalAmount;
+        this.orders = orders;
     }
 
     public boolean availableLeveUp() {
@@ -35,7 +36,9 @@ public class User extends AuditingEntity{
     }
 
     private int getTotalAmount() {
-        return this.totalAmount;
+        return this.orders.stream()
+                .mapToInt(Orders::getAmount)
+                .sum();
     }
 
     public Level levelUp() {
